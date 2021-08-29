@@ -1,7 +1,7 @@
 import { PrismaClient } from '.prisma/client'
 
-export default function UsersResolver() {
+export default async function UsersResolver() {
   const prisma = new PrismaClient()
 
-  return prisma.user.findMany()
+  return await prisma.user.findMany()
 }
