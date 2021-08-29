@@ -1,26 +1,13 @@
 import 'graphql-import-node'
 import dotenv from 'dotenv'
-import { PrismaClient } from '@prisma/client'
 import express from 'express'
 import { graphqlHTTP } from 'express-graphql'
 import { makeExecutableSchema } from '@graphql-tools/schema'
 
 import * as typeDefs from '../schema.graphql'
+import resolvers from './resolvers/index'
 
 dotenv.config()
-
-const prisma = new PrismaClient()
-
-const resolvers = {
-  Query: {
-    hello: () => {
-      return 'world'
-    },
-    allUsers: () => {
-      return prisma.user.findMany()
-    },
-  },
-}
 
 export const schema = makeExecutableSchema({
   resolvers,
@@ -33,6 +20,7 @@ app.use(
   '/graphql',
   graphqlHTTP({
     schema,
+    graphiql: process.env.NODE_ENV === 'development' && true,
   })
 )
 

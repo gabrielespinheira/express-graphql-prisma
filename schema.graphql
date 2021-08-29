@@ -4,6 +4,6 @@ type User {
 }
 
 type Query {
-  allUsers: [User!]!
   hello: String
+  users: [User!]!
 }
